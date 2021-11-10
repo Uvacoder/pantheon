@@ -1,0 +1,50 @@
+.DataPanel {
+    padding: 25px;
+
+    border-radius: 5px;
+    background-color: rgb(26, 27, 30);
+
+    border-radius: 1;
+
+    width: 320px;
+
+    float: left;
+}
+
+.Avatar {
+    border-radius: 12.5%;
+    background-color: rgb(26, 27, 30);
+    border-style: solid !important;
+    border-color: rgb(60, 60, 60) !important;
+    border-width: 1px !important;
+}
+
+.DataBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.DataText {
+    color: rgb(129, 131, 132) !important;
+    display: inline-block;
+    text-align: center;
+}
+
+.Icon {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.IconWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.UserText {
+    margin-top: 10px;
+}
+
+.UserTitle {
+    font-size: 20px;
+}
