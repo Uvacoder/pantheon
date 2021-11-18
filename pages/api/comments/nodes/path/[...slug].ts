@@ -1,6 +1,6 @@
 import CommentService from "../../../../../database/services/comment";
 import { NextApiRequest, NextApiResponse } from "../../../../../utils/types/next";
-import { cookie } from "../../../../../utils/middleware/cookie";
+import { cookie } from "../../../../../utils/server/middleware/cookie";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     switch (req.method) {

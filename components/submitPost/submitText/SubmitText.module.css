@@ -1,0 +1,21 @@
+.Title {
+    margin: 10px;
+}
+
+.Editor {
+    margin: 10px;
+    margin-bottom: 25px;
+}
+
+.SubmitButton {
+    margin: 10px;
+    margin-bottom: 15px;
+    float: right;
+    
+}
+
+.DraftButton {
+    margin: 10px;
+    margin-bottom: 15px;
+    float: right;
+}

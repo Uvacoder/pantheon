@@ -1,0 +1,49 @@
+.PostPanel {
+    background-color: rgb(26, 27, 30) !important;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 4px !important;
+}
+
+.PostPanel:hover {
+    background-color: rgb(36, 37, 40) !important;
+    cursor: pointer;
+}
+
+.VoteSymbol {
+    display: block;
+    color: rgb(129, 131, 132) !important;
+    border-radius: 2px;
+}
+
+.VoteSymbol:hover {
+    background-color: rgb(45, 45, 46) !important;
+}
+
+.Vote {
+    margin-top: 3px;
+    float: left;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.Content {
+    float: left;
+    width: calc(100% - 12px - 22px);
+}
+
+.Text {
+    max-height: 250px;
+    overflow: hidden;
+    mask-image: linear-gradient(180deg, #000 60%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
+
+.LinkWrapper {
+    margin-top: 5px;
+}
+
+.Subtitle {
+    font-size: 13px;
+    color: rgb(129,131,132);
+}

@@ -1,5 +1,5 @@
 import FavoriteService from "../../../database/services/favorite";
-import { getUser } from "../../../utils/session";
+import { getUser } from "../../../utils/server/session";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

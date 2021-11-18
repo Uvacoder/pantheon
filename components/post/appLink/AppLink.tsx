@@ -1,11 +1,11 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React, { FunctionComponent, MouseEventHandler, ReactElement } from "react";
 import styles from "./AppLink.module.css";
 
 interface Props {
     icon: ReactElement;
     text: string;
     href?: string;
-    onClick?: () => void;
+    onClick?: MouseEventHandler<HTMLAnchorElement>
 }
 
 const AppLink: FunctionComponent<Props> = ({ icon, text, href, onClick }: Props) => (
@@ -16,8 +16,7 @@ const AppLink: FunctionComponent<Props> = ({ icon, text, href, onClick }: Props)
 );
 
 AppLink.defaultProps = {
-    onClick: () => {
-    }
+    onClick: () => {}
 };
 
 export default AppLink;

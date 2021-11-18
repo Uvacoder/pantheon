@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { query, ValidationChain } from "express-validator";
-import { cookie } from "../../../utils/middleware/cookie";
-import { validate } from "../../../utils/validation";
+import { cookie } from "../../../utils/server/middleware/cookie";
+import { validate } from "../../../utils/server/validation";
 import PostService from "../../../database/services/post";
+import { SearchRes } from "../../../api/interfaces/post";
+import { ErrorRes } from "../../../api/interfaces/common";
+import { ALL_CATEGORY } from "../../../database/global";
 
 const findFilter: ValidationChain[] = [
     query("poster")
@@ -18,16 +21,15 @@ const findFilter: ValidationChain[] = [
     query("sort")
         .isString()
         .isIn(["new", "top"]),
-    query("skip").isInt(),
-    query("limit").isInt({ max: 100 })
+    query("page").isInt()
 ];
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse<SearchRes | ErrorRes>) {
     switch (req.method) {
         case "GET": {
             const err = await validate(req, findFilter);
             if (err) {
-                res.status(400).json(err);
+                res.status(400).json({ errors: err });
                 return;
             }
 
@@ -39,12 +41,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 res.status(400).json({ msg: "Invalid Date" })
             }
 
+            let page = Number(req.query.skip);
+            if (page <= 0) {
+                page = 1;
+            }
+
+            let category = req.query.category as string | undefined;
+            if (category === ALL_CATEGORY) {
+                category = undefined;
+            }
+
             const filter = {
                 poster: req.query.poster as string | undefined,
-                category: req.query.category as string | undefined,
                 sort: req.query.sort as "new" | "top",
-                skip: Number(req.query.skip),
-                limit: Number(req.query.limit),
+                category,
+                page,
                 date
             };
 

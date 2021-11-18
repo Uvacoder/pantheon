@@ -12,8 +12,7 @@ export interface PostFilter {
     category?: string;
     date?: Date;
     sort: "new" | "top";
-    skip: number;
-    limit: number;
+    page: number;
 }
 
 export interface PostQuery {

@@ -1,5 +1,4 @@
 import { Entity, Index, ManyToOne, PrimaryKey, PrimaryKeyType, Property } from "mikro-orm";
-import { v4 } from "uuid";
 import { Comment } from "./comment";
 import { Post } from "./post";
 import { User } from "./user";

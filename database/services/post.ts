@@ -45,7 +45,6 @@ const PostService = {
         const orm = await getOrm();
 
         const where: any = {};
-        console.log(filter);
         if (filter.poster) {
             where.poster = filter.poster;
         }
@@ -59,14 +58,16 @@ const PostService = {
             }
         }
 
+        const perPage = 12;
+
         const posts = await PostRepo(orm).find(
             where,
             ["poster"],
             filter.sort === "top" ?
                 { votes: QueryOrder.DESC } :
                 { createdAt: QueryOrder.DESC },
-            filter.limit,
-            filter.skip
+            perPage,
+            (filter.page - 1) * perPage
         );
 
         return posts;

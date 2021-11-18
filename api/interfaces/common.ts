@@ -20,6 +20,10 @@ export function findValidationMessage(res: ValidationErrorRes, param: string) {
     return "";
 }
 
-export interface IdRes {
+export interface IdOptionalRes {
     id: string | undefined;
+}
+
+export interface IdRes {
+    id: string;
 }

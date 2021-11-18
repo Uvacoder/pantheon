@@ -11,7 +11,6 @@ import { PostVote, CommentVote } from "./entities/vote";
 require("dotenv").config();
 
 export const config: Options<PostgreSqlDriver> = {
-    tsNode: process.env.NODE_DEV === "true" ? true : false,
     type: "postgresql",
     dbName: process.env.DB_NAME,
     user: process.env.DB_USER,
@@ -20,7 +19,8 @@ export const config: Options<PostgreSqlDriver> = {
     port: 5432,
     metadataProvider: ReflectMetadataProvider,
     entities: [User, Credentials, Session, Post, PostVote, Favorite, Comment, CommentVote],
-    loadStrategy: LoadStrategy.JOINED
+    loadStrategy: LoadStrategy.JOINED,
+    pool: { min: 0, max: 15 }
 };
 
 let orm: MikroORM<PostgreSqlDriver> | undefined = undefined;
@@ -29,8 +29,10 @@ export async function getOrm() {
     if (!orm) {
         console.log("Initializing Orm...");
         orm = await MikroORM.init<PostgreSqlDriver>(config);
-        const generator = orm.getSchemaGenerator();
-        await generator.updateSchema();
+        // const generator = orm.getSchemaGenerator();
+        // await generator.dropSchema();
+        // await generator.createSchema();
+        // await generator.updateSchema();
         console.log("Initialization Complete.");
     }
     return orm;

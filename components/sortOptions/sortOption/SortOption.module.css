@@ -1,0 +1,15 @@
+.SortOption {
+    border-radius: 15px;
+    border-color: rgb(67, 67, 67);
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 20px;
+    color: rgb(194, 195, 197);
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    user-select: none;
+}

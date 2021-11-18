@@ -1,11 +1,11 @@
 import { Entity, Index, PrimaryKey, Property } from "mikro-orm";
-import { v4 } from "uuid";
 import { MAX_USER_DESC_LEN, MAX_USER_NAME_LEN } from "../global";
+import { uuid } from "../utils/id";
 
 @Entity()
 class User {
     @PrimaryKey({ type: String })
-    id: string = v4();
+    id: string = uuid();
 
     @Property({ type: String, length: MAX_USER_NAME_LEN, unique: true })
     @Index()

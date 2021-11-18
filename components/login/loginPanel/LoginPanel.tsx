@@ -1,11 +1,17 @@
 import { InputWrapper, PasswordInput, Text, TextInput, Title } from "@mantine/core";
+import axios from "axios";
 import request from "axios";
 import React, { useCallback, useState } from "react";
-import { login } from "../../../api/client/auth";
+import { config } from "../../../api/config";
+import { SignInBody, SignInRes } from "../../../api/interfaces/auth";
 import { ErrorRes } from "../../../api/interfaces/common";
 import { setCookie } from "../../cookie";
-import FormButton from "../../input/formButton/FormButton";
+import FormButton from "../../util/formButton/FormButton";
 import styles from "./LoginPanel.module.css";
+
+function login(body: SignInBody) {
+    return axios.post<SignInRes>("/api/auth", body, config);
+}
 
 const LoginPanel = () => {
     const [email, setEmail] = useState("");

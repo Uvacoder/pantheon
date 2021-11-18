@@ -1,17 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { body, ValidationChain } from "express-validator";
 import { UpdateBody } from "../../../api/interfaces/post";
-import { cookie } from "../../../utils/middleware/cookie";
-import { validateBody } from "../../../utils/validation";
-import { getUser } from "../../../utils/session";
+import { cookie } from "../../../utils/server/middleware/cookie";
+import { validateBody } from "../../../utils/server/validation";
+import { getUser } from "../../../utils/server/session";
 import PostService from "../../../database/services/post";
+import { MAX_POST_LEN } from "../../../database/global";
+import { sanitizeString } from "../../../utils/sanitize";
 
 const update: ValidationChain[] = [
     body("update.content")
         .optional()
         .isString()
-        .isLength({ max: 10000 })
-        .escape(),
+        .trim()
+        .customSanitizer(value => sanitizeString(value))
+        .isLength({ min: 1})
+        .withMessage("Text content cannot be empty")
+        .isLength({ max: MAX_POST_LEN })
+        .withMessage("Text content cannot exceed " + MAX_POST_LEN + " characters"),
     body("update.images")
         .optional()
         .isArray(),

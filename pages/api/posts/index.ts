@@ -3,22 +3,31 @@ import PostService from "../../../database/services/post";
 import { body, ValidationChain } from "express-validator";
 import { categories, MAX_POST_LEN, MAX_TITLE_LEN } from "../../../database/global";
 import { CreateBody } from "../../../api/interfaces/post";
-import { cookie } from "../../../utils/middleware/cookie";
-import { validateBody } from "../../../utils/validation";
-import { getUser } from "../../../utils/session";
+import { cookie } from "../../../utils/server/middleware/cookie";
+import { validateBody } from "../../../utils/server/validation";
+import { getUser } from "../../../utils/server/session";
+import { ErrorRes, IdRes } from "../../../api/interfaces/common";
+import { sanitizeString } from "../../../utils/sanitize";
 
 const create: ValidationChain[] = [
     body("title")
         .isString()
+        .trim()
+        .escape()
         .isLength({ min: 5, max: MAX_TITLE_LEN })
-        .escape(),
+        .withMessage("Title should be between 5 and " + MAX_TITLE_LEN + " characters"),
     body("category")
         .isString()
         .isIn(categories),
     body("content")
+        .optional()
         .isString()
+        .trim()
+        .customSanitizer(value => sanitizeString(value))
+        .isLength({ min: 1})
+        .withMessage("Text content cannot be empty")
         .isLength({ max: MAX_POST_LEN })
-        .escape(),
+        .withMessage("Text content cannot exceed " + MAX_POST_LEN + " characters"),
     body("images")
         .optional()
         .isArray(),
@@ -27,7 +36,7 @@ const create: ValidationChain[] = [
         .isString()
 ];
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse<IdRes | ErrorRes>) {
     switch (req.method) {
         case "POST": {
             const { body, errors } = await validateBody<CreateBody>(req, create);

@@ -1,12 +1,22 @@
 import { InputWrapper, PasswordInput, Text, TextInput, Title } from "@mantine/core";
+import axios from "axios";
 import request from "axios";
 import React, { useCallback, useState } from "react";
-import { login } from "../../../api/client/auth";
-import { create } from "../../../api/client/user";
-import { findValidationMessage, ValidationErrorRes } from "../../../api/interfaces/common";
+import { config } from "../../../api/config";
+import { SignInBody, SignInRes } from "../../../api/interfaces/auth";
+import { findValidationMessage, IdOptionalRes, ValidationErrorRes } from "../../../api/interfaces/common";
+import { CreateBody } from "../../../api/interfaces/user";
 import { setCookie } from "../../cookie";
-import FormButton from "../../input/formButton/FormButton";
+import FormButton from "../../util/formButton/FormButton";
 import styles from "./SignUpPanel.module.css";
+
+function login(body: SignInBody) {
+    return axios.post<SignInRes>("/api/auth", body, config);
+}
+
+function createUser(body: CreateBody) {
+    return axios.post<IdOptionalRes>("/api/users", body, config);
+}
 
 const SignUpPanel = () => {
     const [email, setEmail] = useState("");
@@ -24,7 +34,7 @@ const SignUpPanel = () => {
             e.preventDefault();
 
             setLoading(true);
-            create({
+            createUser({
                 email: email,
                 name: name,
                 password: password,
@@ -40,11 +50,11 @@ const SignUpPanel = () => {
                             document.location.href = "/";
                         })
                         .catch((err) => {
+                            setNameError("Unexpected Error occured");
                             setLoading(false);
                         });
                 })
                 .catch((err) => {
-                    console.log(err);
                     if (request.isAxiosError(err) && err.response) {
                         const errData = err.response.data as ValidationErrorRes;
                         setEmailError(findValidationMessage(errData, "email"));

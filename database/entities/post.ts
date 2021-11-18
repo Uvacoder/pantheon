@@ -1,13 +1,13 @@
 import { ArrayType, Entity, Index, ManyToOne, PrimaryKey, Property } from "mikro-orm";
 import { User } from "./user";
-import { v4 } from "uuid";
 import { MAX_POST_LEN, MAX_TITLE_LEN } from "../global";
+import { uuid } from "../utils/id";
 
 @Entity()
 @Index({ properties: ["poster", "category"] })
 class Post {
     @PrimaryKey({ type: String })
-    id: string = v4();
+    id: string = uuid();
 
     @ManyToOne({ entity: () => User, nullable: true })
     poster: User | null = null;
@@ -28,7 +28,7 @@ class Post {
     @Property({ type: String, length: MAX_POST_LEN })
     content!: string;
 
-    @Property({ type: ArrayType, nullable: true })
+    @Property({ type: ArrayType })
     images: string[] = [];
 
     @Property({ type: Date })

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "../../../../utils/types/next";
-import { cookie } from "../../../../utils/middleware/cookie";
+import { cookie } from "../../../../utils/server/middleware/cookie";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     // const id = req.query.id as string;

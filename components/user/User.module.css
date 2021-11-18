@@ -4,16 +4,6 @@
 }
 
 .Tabs {
+    margin-top: 12.5px;
     margin-bottom: 25px;
-}
-
-.Sort {
-    margin-bottom: 25px;
-    background-color: rgb(26, 27, 30) !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-.Badge {
-    margin-right: 15px;
 }

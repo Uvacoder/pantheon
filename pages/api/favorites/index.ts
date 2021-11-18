@@ -1,9 +1,9 @@
 import { body, ValidationChain } from "express-validator";
 import { CreateFavoriteBody } from "../../../api/interfaces/favorite";
 import FavoriteService from "../../../database/services/favorite";
-import { getUser } from "../../../utils/session";
+import { getUser } from "../../../utils/server/session";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
-import { validateBody } from "../../../utils/validation";
+import { validateBody } from "../../../utils/server/validation";
 
 const create: ValidationChain[] = [
     body("post").isString()

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { FunctionComponent, ReactElement } from "react";
 import styles from "./AppLink.module.css";
 
@@ -9,15 +10,26 @@ interface Props {
 }
 
 const AppLink: FunctionComponent<Props> = ({ icon, text, href, onClick }: Props) => (
-    <a className={styles.AppLink} href={href} onClick={onClick}>
-        <span>{icon}</span>
-        <span className={styles.Element}>{text}</span>
-    </a>
+    <>
+        {href ?
+            <Link href={href}>
+                <a className={styles.AppLink}>
+                    <span>{icon}</span>
+                    <span className={styles.Element}>{text}</span>
+                </a>
+            </Link> 
+            :
+            <span className={styles.AppLink} onClick={onClick}>
+                <span>{icon}</span>
+                <span className={styles.Element}>{text}</span>
+            </span>
+        }
+    </>
+    
 );
 
 AppLink.defaultProps = {
-    onClick: () => {
-    }
-};
+    onClick: () => {}
+}
 
 export default AppLink;

@@ -1,10 +1,10 @@
 import { body, query, ValidationChain } from "express-validator";
 import { CreateRootBody } from "../../../../api/interfaces/comment";
-import { MAX_COMMENT_LEN } from "../../../../database/global";
+import { MAX_COMMENT_LEN, SortType } from "../../../../database/global";
 import { NextApiRequest, NextApiResponse } from "../../../../utils/types/next";
-import { cookie } from "../../../../utils/middleware/cookie";
-import { getUser } from "../../../../utils/session";
-import { validate, validateBody } from "../../../../utils/validation";
+import { cookie } from "../../../../utils/server/middleware/cookie";
+import { getUser } from "../../../../utils/server/session";
+import { validate, validateBody } from "../../../../utils/server/validation";
 import CommentService from "../../../../database/services/comment";
 
 const findFilter: ValidationChain[] = [
@@ -32,7 +32,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const filter = {
                 post: req.query.post as string,
-                sort: req.query.sort as "new" | "top",
+                sort: req.query.sort as SortType,
                 skip: Number(req.query.skip),
                 limit: Number(req.query.limit)
             };

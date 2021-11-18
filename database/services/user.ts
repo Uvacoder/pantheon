@@ -3,7 +3,7 @@ import { User } from "../entities/user";
 import { UserInput, UserUpdate } from "../interfaces/user";
 import { getOrm } from "../orm";
 import { Credentials } from "../entities/credentials";
-import { MikroORM } from "mikro-orm";
+import { expr, MikroORM } from "mikro-orm";
 
 const SALT_ROUNDS = 12;
 
@@ -13,6 +13,31 @@ const CredRepo = (orm: MikroORM) => orm.em.getRepository(Credentials);
 const UserService = {
     async create(user: UserInput) {
         const orm = await getOrm();
+
+        const emailExists = (await UserService.findCredsByEmail(user.email)) !== null;
+        const nameExists = (await UserService.findUserByName(user.name)) !== null;
+
+        if (emailExists) {
+            return {
+                errors: [
+                    {
+                        param: "email",
+                        msg: "Email address is already in use"
+                    }
+                ]
+            }
+        }
+
+        if (nameExists) {
+            return {
+                errors: [
+                    {
+                        param: "name",
+                        msg: "User name is already in use"
+                    }
+                ]
+            }
+        }
 
         const salt = await bcrypt.genSalt(SALT_ROUNDS);
         const hashedPassword = await bcrypt.hash(user.password, salt);
@@ -30,7 +55,9 @@ const UserService = {
         orm.em.persist(userEntity);
         await orm.em.flush();
 
-        return userEntity.id;
+        
+
+        return { id: userEntity.id };
     },
 
     async matchByPassword(credentials: Credentials | null, password: string) {
@@ -57,7 +84,9 @@ const UserService = {
     async findUserByName(name: string) {
         const orm = await getOrm();
 
-        return await UserRepo(orm).findOne({ name: name });
+        return await UserRepo(orm).findOne({ 
+            [expr("upper(name)")]: orm.em.getKnex().raw("upper(?)", name)
+        });
     },
 
     async findByLogin(email: string, password: string) {

@@ -1,12 +1,12 @@
 import { CreateBody, UpdateBody } from "../../../api/interfaces/user";
-import { ErrorRes, IdRes } from "../../../api/interfaces/common";
+import { ErrorRes, IdOptionalRes } from "../../../api/interfaces/common";
 import { MAX_PASSWORD_LEN, MAX_USER_DESC_LEN, MAX_USER_NAME_LEN } from "../../../database/global";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { ValidationChain, body } from "express-validator";
 import UserService from "../../../database/services/user";
-import { cookie } from "../../../utils/middleware/cookie";
-import { getUser } from "../../../utils/session";
-import { validateBody } from "../../../utils/validation";
+import { cookie } from "../../../utils/server/middleware/cookie";
+import { getUser } from "../../../utils/server/session";
+import { validateBody } from "../../../utils/server/validation";
 
 const create: ValidationChain[] = [
     body("email").isString()
@@ -19,7 +19,6 @@ const create: ValidationChain[] = [
         .isLength({ min: 5, max: MAX_USER_NAME_LEN })
         .withMessage("Should be between 5 and 25 characters.")
         .escape()
-        .toLowerCase()
         .custom(async (value) => await UserService.findUserByName(value))
         .withMessage("User name is already in use."),
     body("password").isString()
@@ -41,7 +40,7 @@ const update: ValidationChain[] = [
         .isLength({ min: 10, max: MAX_USER_DESC_LEN })
 ];
 
-async function handler(req: NextApiRequest, res: NextApiResponse<IdRes | ErrorRes>) {
+async function handler(req: NextApiRequest, res: NextApiResponse<IdOptionalRes | ErrorRes>) {
     switch (req.method) {
         case "POST": {
             const { body, errors } = await validateBody<CreateBody>(req, create);
@@ -50,8 +49,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IdRes | ErrorRe
                 return;
             }
 
-            const id = await UserService.create(body);
-            res.json({ id: id });
+            const { id, errors: createErrors } = await UserService.create(body);
+            if(id) {
+                res.json({ id: id });
+            } else {
+                res.status(400).json({ errors: createErrors });
+            } 
             return;
         }
         case "PUT": {

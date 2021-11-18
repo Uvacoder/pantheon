@@ -3,6 +3,7 @@ import styles from "./UserPanel.module.css";
 import { Text, Title } from "@mantine/core";
 import { Calendar, Heart } from "react-feather";
 import { UserData } from "../User";
+import AppAvatar from "../../appAvatar/AppAvatar";
 
 interface Props {
     userData: UserData;
@@ -10,7 +11,7 @@ interface Props {
 
 const UserPanel = ({ userData }: Props) => (
     <div className={styles.DataPanel}>
-        <img className={styles.Avatar} src={"/api/images/avatar/" + userData.userId} width={80} height={80} />
+        <AppAvatar width={80} height={80} />
         <div className={styles.UserText}>
             <Title order={3} className={styles.UserTitle}>
                 {userData.name}

@@ -1,4 +1,5 @@
 import { User } from "../entities/user";
+import { SortType } from "../global";
 
 export interface CommentRootInput {
     post: string;
@@ -11,7 +12,7 @@ export interface CommentNodeInput {
 }
 
 interface Filter {
-    sort: "new" | "top";
+    sort: SortType;
     limit: number;
     skip: number;
 }

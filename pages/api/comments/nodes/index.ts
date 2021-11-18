@@ -2,9 +2,9 @@ import { body, ValidationChain } from "express-validator";
 import { CreateNodeBody } from "../../../../api/interfaces/comment";
 import { MAX_COMMENT_LEN } from "../../../../database/global";
 import { NextApiRequest, NextApiResponse } from "../../../../utils/types/next";
-import { cookie } from "../../../../utils/middleware/cookie";
-import { getUser } from "../../../../utils/session";
-import { validateBody } from "../../../../utils/validation";
+import { cookie } from "../../../../utils/server/middleware/cookie";
+import { getUser } from "../../../../utils/server/session";
+import { validateBody } from "../../../../utils/server/validation";
 import CommentService from "../../../../database/services/comment";
 
 const create: ValidationChain[] = [

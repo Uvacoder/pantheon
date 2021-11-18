@@ -1,12 +1,12 @@
 import { Entity, Index, OneToOne, PrimaryKey, Property } from "mikro-orm";
-import { v4 } from "uuid";
 import { MAX_EMAIL_LEN } from "../global";
+import { uuid } from "../utils/id";
 import { User } from "./user";
 
 @Entity()
 class Credentials {
     @PrimaryKey({ type: String })
-    id: string = v4();
+    id: string = uuid();
 
     @OneToOne({ entity: () => User })
     @Index()
