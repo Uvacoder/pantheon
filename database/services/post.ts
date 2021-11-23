@@ -58,7 +58,7 @@ const PostService = {
             }
         }
 
-        const perPage = 12;
+        const perPage = 15;
 
         const posts = await PostRepo(orm).find(
             where,
@@ -70,7 +70,12 @@ const PostService = {
             (filter.page - 1) * perPage
         );
 
-        return posts;
+        const pageCount = Math.ceil((await PostRepo(orm).count(where)) / perPage);
+
+        return { 
+            posts, 
+            pageCount
+        };
     },
 
     async update(postQuery: PostQuery, postUpdate: PostUpdate) {

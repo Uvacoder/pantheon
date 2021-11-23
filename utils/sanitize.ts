@@ -1,11 +1,12 @@
 import DOMPurify from "isomorphic-dompurify";
 
-export const options = {
-    FORBID_TAGS: ["style", "script"]
+export const options: DOMPurify.Config = {
+    ALLOWED_TAGS: ["p", "ul", "li", "u", "b", "i", "strike", "h1", "h2", "h3", "sup", "sub", "blockquote"],
+    ALLOWED_ATTR: ["href"]
 };
 
 export const sanitizeHTML = (dirty: string) => ({
-    __html: sanitizeString(dirty)
+    __html: sanitizeString(dirty) as string
 })
 
 export function sanitizeString(dirty: string) {

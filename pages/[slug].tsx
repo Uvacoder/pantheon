@@ -3,7 +3,7 @@ import React from "react";
 import Banner from "../components/banner/Banner";
 import Feed from "../components/feed/Feed";
 import Body from "../components/util/body/Body";
-import { SortType, TimeType } from "../database/global";
+import { categories, SortType, TimeType } from "../database/global";
 
 interface Props {
     sort: SortType;
@@ -42,6 +42,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         };
     }
 
+    let sort = query.slug as string | undefined;
+    if (!sort) {
+        sort = "new";
+    }
+
     let time = query.t as string | undefined;
     if (!time) {
         time = "day";
@@ -49,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     return {
         props: {
-            sort: "new",
+            sort,
             time,
             page
         }

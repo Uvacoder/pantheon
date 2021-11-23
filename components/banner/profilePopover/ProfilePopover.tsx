@@ -28,6 +28,8 @@ const ProfilePopover = ({ name, onSignOut }: Props) => {
             position="bottom"
             spacing={0}
             withArrow
+            noFocusTrap
+            noEscape
         >
             <LinkTitle text="My Stuff" />
             <AppLink icon={<User size={30} className={styles.Element} />} text="Profile" href={"/user/" + name} />

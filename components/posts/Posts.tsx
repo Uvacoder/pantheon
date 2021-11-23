@@ -1,57 +1,72 @@
-import React, { useState } from "react";
-import { SortType } from "../../database/global";
+import React from "react";
+import { SortType, TimeType } from "../../database/global";
 import styles from "./Posts.module.css";
-import PostsPage from "./postsPage/PostsPage";
+import useSWR from "swr";
+import { SearchRes } from "../../api/interfaces/post";
+import { fetcher } from "../../utils/client/fetcher";
+import PostPanel from "../post/postPanel/PostPanel";
+import Pagination from "../util/pagination/Pagination";
 
 interface Props {
-    sort?: SortType;
-    category?: string;
+    sort: SortType;
+    time?: TimeType;
     user?: string;
     width: string;
+    page: number;
+    buildURL: (sort: SortType, time?: TimeType) => string;
 }
 
-function buildUrl(sort?: string, category?: string, user?: string) {
+function buildFetchUrl({ sort, user, time, page }: Props) {
     let url = "/api/posts/search?";
     if (sort) {
         url += "sort=" + sort;
+        if (sort === "top" && time) {
+            url += "&time=" + time;
+        }
     } else {
         url += "sort=" + "new";
-    }
-    if (category) {
-        url += "&category=" + category;
     }
     if (user) {
         user += "&poster=" + user;
     }
-
+    url += "&page=" + page;
     return url;
 }
 
-const Posts = ({ sort, category, user, width }: Props) => {
+const Posts = (props: Props) => {
 
-    const [cnt, setCnt] = useState(1);
-
-    const url = buildUrl(sort, category, user);
-
-    const pages = []
-    for (let i = 0; i < cnt; i++) {
-        pages.push(
-            <PostsPage 
-                url={url} 
-                page={i} 
-                key={i}
-            />
-        );
-    }
+    const { data } = useSWR<SearchRes>(buildFetchUrl(props), fetcher);
 
     return (
         <div 
             className={styles.UserPosts}
             style={{
-                width: width
+                width: props.width
             }}
         >
-            { pages }
+            {(data && data.posts.length !== 0) ?
+                <>
+                    <div className={styles.UserPosts}>
+                        {data?.posts?.map((post, i) => (
+                            <PostPanel key={i} post={post} />
+                        ))}
+                    </div>
+                    <div className={styles.Pagination}>
+                        <div className={styles.PaginationInner}>
+                            <Pagination 
+                                page={props.page} 
+                                total={data.pageCount}
+                                url={props.buildURL(props.sort, props.time)}
+                            />
+                        </div>
+                    </div>
+                </>
+                :
+                <div className={styles.BigText}>
+                    Sorry, we couldn't find any posts.
+                </div>
+            }
+
         </div>
     );
 }

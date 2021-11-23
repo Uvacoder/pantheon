@@ -12,3 +12,4 @@ export const ALL_CATEGORY = "All";
 export const categories = [ALL_CATEGORY, "Technology", "Medicine", "Politics"];
 
 export type SortType = "top" | "new";
+export type TimeType = "day" | "week" | "month" | "year" | "alltime";

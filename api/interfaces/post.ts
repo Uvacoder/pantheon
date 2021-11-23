@@ -21,4 +21,5 @@ export interface SearchBody {
 
 export type SearchRes = {
     posts: Post[];
+    pageCount: number;
 }

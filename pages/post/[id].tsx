@@ -1,6 +1,8 @@
 import { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import Banner from "../../components/banner/Banner";
+import Feed from "../../components/feed/Feed";
+import FullPost from "../../components/post/fullPostPanel/FullPostPanel";
 import PostPanel from "../../components/post/postPanel/PostPanel";
 import Body from "../../components/util/body/Body";
 import { Post } from "../../database/entities/post";
@@ -21,7 +23,7 @@ const PostPage: NextPage<Props> = ({ serializedPost }: Props) => (
                     width: "50%"
                 }}
             >
-                
+                <FullPost post={JSON.parse(serializedPost)}/>
             </div>
         </Body>
     </>

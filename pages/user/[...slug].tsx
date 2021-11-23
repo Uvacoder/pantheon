@@ -4,20 +4,24 @@ import Banner from "../../components/banner/Banner";
 import React from "react";
 import UserService from "../../database/services/user";
 import Body from "../../components/util/body/Body";
-import { SortType } from "../../database/global";
+import { SortType, TimeType } from "../../database/global";
 
 interface Props {
     userData: UserData;
-    initialSort: SortType;
+    sort: SortType;
+    time: TimeType;
+    page: number;
 }
 
-const UserPage: NextPage<Props> = ({ userData, initialSort }: Props) => (
+const UserPage: NextPage<Props> = ({ userData, sort, time, page }: Props) => (
     <>
         <Banner />
         <Body>
             <User 
                 userData={userData}
-                initialSort={initialSort}
+                sort={sort}
+                time={time}
+                page={page}
             />
         </Body>
     </>
@@ -25,11 +29,40 @@ const UserPage: NextPage<Props> = ({ userData, initialSort }: Props) => (
 
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-    const name = query.slug as string;
+    const slugs = query.slug as string[];
 
-    let sort = query.sort as string;
+    const pageStr = query.p as string | undefined;
+    let page = Number(pageStr);
+    if (!page) {
+        page = 1;
+    }
+    if (isNaN(page) || page <= 0) {
+        return {
+            redirect: {
+                destination: "/404"
+            },
+            props: {}
+        };
+    }
+
+    let sort = slugs[1];
     if (!sort) {
         sort = "new";
+    }
+
+    let time = query.t as string | undefined;
+    if (!time) {
+        time = "day";
+    }
+
+    const name = slugs[0];
+    if (!name) {
+        return {
+            redirect: {
+                destination: "/404"
+            },
+            props: {}
+        };
     }
 
     const user = await UserService.findUserByName(name);
@@ -51,7 +84,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 description: user.description,
                 joined: user.createdAt.toLocaleDateString()
             },
-            initialSort: sort
+            sort,
+            time,
+            page
         }
     };
 };

@@ -3,8 +3,8 @@
     width: 120px;
     text-align: center;
     display: inline-block;
-    margin-right: 20px !important;
-    margin-left: 130px !important;
+    margin-left: calc(12.5% - 60px) !important;
+    margin-right: calc(12.5% - 60px) !important;
     border-radius: 3px;
     padding: 3px !important;
     padding-right: 8px !important;

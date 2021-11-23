@@ -4,19 +4,19 @@ import React from "react";
 import { Post } from "../../../database/entities/post";
 import PostContent from "../postContent/PostContent";
 import VotePanel from "../votePanel/VotePanel";
-import styles from "./PostPanel.module.css";
+import styles from "./FullPostPanel.module.css";
 
 interface Props {
     post: Post;
 }
     
-const PostPanel = ({ post }: Props) => (
+const FullPostPanel = ({ post }: Props) => (
     <Link href={"/post/" + post.id}>
-        <Card className={styles.PostPanel}>
+        <Card className={styles.FullPostPanel}>
             <VotePanel postId={post.id}/>
-            <PostContent post={post} className={styles.TextNoOverflow}/>
+            <PostContent post={post} className={styles.TextNoLimit}/>
         </Card>
     </Link>
 );
 
-export default PostPanel;
+export default FullPostPanel;

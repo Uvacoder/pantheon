@@ -14,8 +14,6 @@ export function submitPost(body: CreateBody) {
 
 const SubmitPost = () => {
 
-    const [category, setCategory] = useState<string | undefined>(undefined);
-
     return (
         <div className={styles.SubmitPost}>
            <Title order={3} className={styles.SubmitTitle}>
@@ -23,24 +21,17 @@ const SubmitPost = () => {
             </Title>
             <Divider style={{ marginTop: 12, marginBottom: 18 }} />
             <Card className={styles.SubmitPanel}>
-                <div className={styles.CategorySelectContainer}>
-                    <CategoriesSelect 
-                        placeholder={"Choose a Category"}
-                        onChange={setCategory}
-                    />
-                </div>
                 <Space h="md"/>
                 <Tabs className={styles.Tabs}>
                     <Tab label="Text" className={styles.Tab}>
-                        <SubmitText
-                            category={category}
-                        />
+                        <SubmitText/>
                     </Tab>
                     <Tab label="Link" className={styles.Tab}></Tab>
                     <Tab label="Image" className={styles.Tab}></Tab>
                     <Tab label="Poll" className={styles.Tab}></Tab>
                 </Tabs>
             </Card>
+            <Space h={300}/>
         </div>
     );
 }

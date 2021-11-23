@@ -1,13 +1,16 @@
 import React, { FunctionComponent } from "react";
+import { ChevronDown } from "react-feather";
 import styles from "./SortOption.module.css";
 
 interface Props {
     text: string;
     selected: boolean;
     onClick?: () => void;
+    withArrow?: boolean;
+    
 }
 
-const SortOption: FunctionComponent<Props> = ({ text, selected, onClick }: Props) => (
+const SortOption: FunctionComponent<Props> = ({ text, selected, onClick, withArrow }: Props) => (
     <div
         className={styles.SortOption}
         style={{
@@ -16,11 +19,13 @@ const SortOption: FunctionComponent<Props> = ({ text, selected, onClick }: Props
         onClick={onClick}
     >
         { text }
+        {!withArrow || <ChevronDown className={styles.Arrow} size={18}/>}
     </div>
 );
 
 SortOption.defaultProps = {
-    onClick: () => {}
+    onClick: () => {},
+    withArrow: false
 }
 
 export default SortOption;

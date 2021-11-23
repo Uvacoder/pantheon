@@ -9,7 +9,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Head>
                 <title>Pantheon</title>
                 <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-                <html lang="en"></html>
+                <html></html>
             </Head>
 
             <MantineProvider

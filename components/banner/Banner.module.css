@@ -15,6 +15,13 @@
     background-color: rgb(26, 27, 30);
 }
 
+.LoginWrapper {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .LoginLinkDiv {
     border-style: solid;
     border-color: rgb(60, 60, 60);
@@ -24,7 +31,6 @@
     padding-bottom: 5px;
     padding-left: 12px;
     padding-right: 12px;
-    margin-right: 20px;
     background-color: rgb(216, 218, 220);
     color: black;
 }

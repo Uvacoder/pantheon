@@ -8,11 +8,7 @@ import styles from "./SubmitText.module.css";
 import request from "axios";
 import { ErrorRes, findValidationMessage } from "../../../api/interfaces/common";
 
-interface Props {
-    category?: string;
-}
-
-const SubmitPost = ({ category }: Props) => {
+const SubmitPost = () => {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -28,7 +24,7 @@ const SubmitPost = ({ category }: Props) => {
             submitPost({
                 title: title,
                 content: content,
-                category: category ? category : ALL_CATEGORY
+                category: ALL_CATEGORY
             })
                 .then((r) => {
                     setLoading(false);
@@ -43,7 +39,7 @@ const SubmitPost = ({ category }: Props) => {
                     setLoading(false);
                 });
         },
-        [title, content, category]
+        [title, content]
     );
 
     return (
@@ -65,12 +61,6 @@ const SubmitPost = ({ category }: Props) => {
                 <TextEditor
                     value={content} 
                     onChange={setContent}
-                    controls={[
-                        ["bold", "italic", "underline", "link", "image"],
-                        ["unorderedList", "h1", "h2", "h3"],
-                        ["sup", "sub"],
-                        ["alignLeft", "alignCenter", "alignRight"],
-                    ]}
                 />
             </InputWrapper>
             <Button 
@@ -80,7 +70,6 @@ const SubmitPost = ({ category }: Props) => {
                 }}
                 loading={loading}
                 onClick={submit}
-                disabled={!category}
             >
                 Post
             </Button>
