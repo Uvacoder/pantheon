@@ -1,4 +1,4 @@
-import SessionService from "../../database/services/session";
+import SessionService from "../../model/services/session.service";
 import { NextApiRequest } from "../types/next";
 
 async function getUser(req: NextApiRequest) {

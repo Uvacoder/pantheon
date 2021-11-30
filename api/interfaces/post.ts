@@ -1,5 +1,5 @@
-import { Post } from "../../database/entities/post";
-import { PostFilter } from "../../database/interfaces/post";
+import { Post } from "../../model/entities/post.entity";
+import { PostFilter } from "../../model/interfaces/post";
 
 export interface UpdateBody {
     update: {
@@ -10,9 +10,9 @@ export interface UpdateBody {
 
 export interface CreateBody {
     title: string;
-    category: string;
-    content: string;
+    content?: string;
     images?: string[];
+    link?: string;
 }
 
 export interface SearchBody {

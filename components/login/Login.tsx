@@ -1,8 +1,8 @@
 import { Center, Divider } from "@mantine/core";
 import React from "react";
 import styles from "./Login.module.css";
-import LoginPanel from "./loginPanel/LoginPanel";
-import SignUpPanel from "./signUpPanel/SignUpPanel";
+import LoginPanel from "./LoginPanel/LoginPanel";
+import SignUpPanel from "./SignUpPanel/SignUpPanel";
 
 const Login = () => {
     return (

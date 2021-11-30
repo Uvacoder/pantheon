@@ -1,6 +1,6 @@
 import { CookieSerializeOptions, serialize } from "cookie";
-import { SESSION_EXPIRY } from "../../../database/global";
-import SessionService from "../../../database/services/session";
+import { SESSION_EXPIRY } from "../../../model/global";
+import SessionService from "../../../model/services/session.service";
 import { Handler, NextApiRequest, NextApiResponse } from "../../types/next";
 
 export const COOKIE_NAME = "SESSION";

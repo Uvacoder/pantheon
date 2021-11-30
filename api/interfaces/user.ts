@@ -1,6 +1,5 @@
 export interface UpdateBody {
     update: {
-        avatar?: string;
         description?: string;
     };
 }

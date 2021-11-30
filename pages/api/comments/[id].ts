@@ -1,11 +1,11 @@
 import { body, ValidationChain } from "express-validator";
 import { UpdateBody } from "../../../api/interfaces/comment";
-import { MAX_COMMENT_LEN } from "../../../database/global";
+import { MAX_COMMENT_LEN } from "../../../model/global";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { getUser } from "../../../utils/server/session";
 import { validateBody } from "../../../utils/server/validation";
-import CommentService from "../../../database/services/comment";
+import CommentService from "../../../model/services/comment.service";
 
 const update: ValidationChain[] = [
     body("update.content")
@@ -16,10 +16,6 @@ const update: ValidationChain[] = [
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const id = req.query.id as string;
-    if (typeof id !== "string") {
-        res.status(400).end();
-        return;
-    }
 
     switch (req.method) {
         case "GET": {

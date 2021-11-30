@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { param, ValidationChain } from "express-validator";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { validate } from "../../../utils/server/validation";
-import CommentService from "../../../database/services/comment";
+import CommentService from "../../../model/services/comment.service";
 
 const findFilter: ValidationChain[] = [
     param("commenter")

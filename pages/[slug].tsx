@@ -1,9 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import React from "react";
-import Banner from "../components/banner/Banner";
-import Feed from "../components/feed/Feed";
-import Body from "../components/util/body/Body";
-import { categories, SortType, TimeType } from "../database/global";
+import Banner from "../components/Banner/Banner";
+import Feed from "../components/Feed/Feed";
+import Body from "../components/Util/Layout/Body/Body";
+import { categories, SortType, TimeType } from "../model/global";
 
 interface Props {
     sort: SortType;

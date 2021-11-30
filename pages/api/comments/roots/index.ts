@@ -1,11 +1,11 @@
 import { body, query, ValidationChain } from "express-validator";
 import { CreateRootBody } from "../../../../api/interfaces/comment";
-import { MAX_COMMENT_LEN, SortType } from "../../../../database/global";
+import { MAX_COMMENT_LEN, SortType } from "../../../../model/global";
 import { NextApiRequest, NextApiResponse } from "../../../../utils/types/next";
 import { cookie } from "../../../../utils/server/middleware/cookie";
 import { getUser } from "../../../../utils/server/session";
 import { validate, validateBody } from "../../../../utils/server/validation";
-import CommentService from "../../../../database/services/comment";
+import CommentService from "../../../../model/services/comment.service";
 
 const findFilter: ValidationChain[] = [
     query("post").isString(),

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import AppLogo from "./appLogo/AppLogo";
-import ProfilePopover from "./profilePopover/ProfilePopover";
-import SearchBar from "./searchBar/SearchBar";
+import AppLogo from "./AppLogo/AppLogo";
+import ProfilePopover from "./ProfilePopover/ProfilePopover";
+import SearchBar from "./SearchBar/SearchBar";
 import styles from "./Banner.module.css";
 import { clearCookie, getCookie } from "../cookie";
 import axios from "axios";
@@ -12,11 +12,7 @@ function signOut() {
     return axios.delete("/api/auth", config);
 }
 
-interface Props {
-    category?: string;
-}
-
-const AppBanner = ({ category }: Props) => {
+const AppBanner = () => {
 
     const [name, setName] = useState<string>();
 

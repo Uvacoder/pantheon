@@ -6,7 +6,7 @@ import { config } from "../../../api/config";
 import { SignInBody, SignInRes } from "../../../api/interfaces/auth";
 import { ErrorRes } from "../../../api/interfaces/common";
 import { setCookie } from "../../cookie";
-import FormButton from "../../util/formButton/FormButton";
+import FormButton from "../../Util/Widget/FormButton/FormButton";
 import styles from "./LoginPanel.module.css";
 
 function login(body: SignInBody) {
@@ -56,7 +56,10 @@ const LoginPanel = () => {
                     <TextInput
                         placeholder="Email"
                         value={email}
-                        onChange={(event) => setEmail(event.currentTarget.value)}
+                        onChange={(event) => {
+                            setEmail(event.currentTarget.value);
+                            setError("");
+                        }}
                         error={error}
                         autoComplete="email"
                     />
@@ -65,7 +68,10 @@ const LoginPanel = () => {
                     <PasswordInput
                         placeholder="Password"
                         value={password}
-                        onChange={(event) => setPassword(event.currentTarget.value)}
+                        onChange={(event) => {
+                            setPassword(event.currentTarget.value);
+                            setError("");
+                        }}
                         autoComplete="current-password"
                     />
                 </InputWrapper>

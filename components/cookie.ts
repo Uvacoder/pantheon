@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { SESSION_EXPIRY } from "../database/global";
+import { SESSION_EXPIRY } from "../model/global";
 
 export const USER_COOKIE = "USER";
 

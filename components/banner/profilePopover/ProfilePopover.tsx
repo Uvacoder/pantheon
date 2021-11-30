@@ -1,9 +1,9 @@
 import { Button, Divider, Popover } from "@mantine/core";
 import React, { useState } from "react";
 import { HelpCircle, LogOut, Settings, User } from "react-feather";
-import AppAvatar from "../../appAvatar/AppAvatar";
-import AppLink from "../appLink/AppLink";
-import LinkTitle from "../linkTitle/LinkTitle";
+import AppAvatar from "../../Util/Widget/AppAvatar/AppAvatar";
+import AppLink from "../AppLink/BannerLink";
+import LinkTitle from "../LinkTitle/LinkTitle";
 import styles from "./ProfilePopover.module.css";
 
 interface Props {

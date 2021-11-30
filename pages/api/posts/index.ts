@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
-import PostService from "../../../database/services/post";
+import PostService from "../../../model/services/post.service";
 import { body, ValidationChain } from "express-validator";
-import { categories, MAX_POST_LEN, MAX_TITLE_LEN } from "../../../database/global";
+import { MAX_POST_LEN, MAX_TITLE_LEN } from "../../../model/global";
 import { CreateBody } from "../../../api/interfaces/post";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { validateBody } from "../../../utils/server/validation";
@@ -15,10 +15,7 @@ const create: ValidationChain[] = [
         .trim()
         .escape()
         .isLength({ min: 5, max: MAX_TITLE_LEN })
-        .withMessage("Title should be between 5 and " + MAX_TITLE_LEN + " characters"),
-    body("category")
-        .isString()
-        .isIn(categories),
+        .withMessage(`Title should be between 5 and ${MAX_TITLE_LEN} characters`),
     body("content")
         .optional()
         .isString()
@@ -27,13 +24,22 @@ const create: ValidationChain[] = [
         .isLength({ min: 1})
         .withMessage("Text content cannot be empty")
         .isLength({ max: MAX_POST_LEN })
-        .withMessage("Text content cannot exceed " + MAX_POST_LEN + " characters"),
+        .withMessage(`Text content cannot exceed ${MAX_POST_LEN} characters`),
+    body("link")
+        .optional()
+        .isString()
+        .trim()
+        .customSanitizer(value => sanitizeString(value))
+        .isURL()
+        .withMessage("Link must be a valid URL.")
+        .isLength({ max: MAX_POST_LEN })
+        .withMessage(`Link cannot exceed ${MAX_POST_LEN} characters`),
     body("images")
         .optional()
         .isArray(),
     body("images.*")
         .optional()
-        .isString()
+        .isString(),
 ];
 
 async function handler(req: NextApiRequest, res: NextApiResponse<IdRes | ErrorRes>) {

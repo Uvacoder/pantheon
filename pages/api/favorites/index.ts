@@ -1,6 +1,6 @@
 import { body, ValidationChain } from "express-validator";
 import { CreateFavoriteBody } from "../../../api/interfaces/favorite";
-import FavoriteService from "../../../database/services/favorite";
+import FavoriteService from "../../../model/services/favorite.service";
 import { getUser } from "../../../utils/server/session";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { validateBody } from "../../../utils/server/validation";

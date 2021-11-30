@@ -7,7 +7,7 @@ import { SignInBody, SignInRes } from "../../../api/interfaces/auth";
 import { findValidationMessage, IdOptionalRes, ValidationErrorRes } from "../../../api/interfaces/common";
 import { CreateBody } from "../../../api/interfaces/user";
 import { setCookie } from "../../cookie";
-import FormButton from "../../util/formButton/FormButton";
+import FormButton from "../../Util/Widget/FormButton/FormButton";
 import styles from "./SignUpPanel.module.css";
 
 function login(body: SignInBody) {
@@ -28,6 +28,15 @@ const SignUpPanel = () => {
     const [emailError, setEmailError] = useState("");
     const [nameError, setNameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+    const clearErrors = useCallback(
+        () => {
+            setEmailError("");
+            setNameError("");
+            setPasswordError("");
+        },
+        []
+    );
 
     const submit = useCallback(
         (e) => {
@@ -79,7 +88,10 @@ const SignUpPanel = () => {
                         placeholder="Email"
                         value={email}
                         error={emailError}
-                        onChange={(event) => setEmail(event.currentTarget.value)}
+                        onChange={(event) => {
+                            setEmail(event.currentTarget.value);
+                            clearErrors();
+                        }}
                         autoComplete="email"
                     />
                 </InputWrapper>
@@ -88,7 +100,10 @@ const SignUpPanel = () => {
                         placeholder="Username"
                         value={name}
                         error={nameError}
-                        onChange={(event) => setName(event.currentTarget.value)}
+                        onChange={(event) => {
+                            setName(event.currentTarget.value);
+                            clearErrors();
+                        }}
                         autoComplete="username"
                     />
                 </InputWrapper>
@@ -97,7 +112,10 @@ const SignUpPanel = () => {
                         placeholder="Password"
                         value={password}
                         error={passwordError}
-                        onChange={(event) => setPassword(event.currentTarget.value)}
+                        onChange={(event) => {
+                            setPassword(event.currentTarget.value);
+                            clearErrors();
+                        }}
                         autoComplete="new-password"
                     />
                 </InputWrapper>

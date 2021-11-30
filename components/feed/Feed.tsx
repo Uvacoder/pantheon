@@ -1,9 +1,9 @@
 import { Card, TextInput } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { SortType, TimeType } from "../../database/global";
-import AppAvatar from "../appAvatar/AppAvatar";
-import Posts from "../posts/Posts";
-import SortOptions from "../sortOptions/SortOptions";
+import { SortType, TimeType } from "../../model/global";
+import AppAvatar from "../Util/Widget/AppAvatar/AppAvatar";
+import Posts from "../Post/Posts/Posts";
+import SortOptions from "../Util/Widget/SortOptions/SortOptions";
 import Link from "next/link";
 import styles from "./Feed.module.css";
 import { getCookie } from "../cookie";
@@ -32,7 +32,7 @@ const Feed = ({ sort, time, page }: Props) => {
     });
 
     return (
-        <div className={styles.Feed}>
+        <div>
             {!name ||
                 <Card className={styles.Create}>
                     <AppAvatar

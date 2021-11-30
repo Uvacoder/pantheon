@@ -3,7 +3,7 @@ import styles from "./UserPanel.module.css";
 import { Text, Title } from "@mantine/core";
 import { Calendar, Heart } from "react-feather";
 import { UserData } from "../User";
-import AppAvatar from "../../appAvatar/AppAvatar";
+import AppAvatar from "../../Util/Widget/AppAvatar/AppAvatar";
 
 interface Props {
     userData: UserData;

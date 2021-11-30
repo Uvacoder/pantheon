@@ -1,10 +1,10 @@
 import type { GetServerSideProps, NextPage } from "next";
-import User, { UserData } from "../../components/user/User";
-import Banner from "../../components/banner/Banner";
+import User, { UserData } from "../../components/User/User";
+import Banner from "../../components/Banner/Banner";
 import React from "react";
-import UserService from "../../database/services/user";
-import Body from "../../components/util/body/Body";
-import { SortType, TimeType } from "../../database/global";
+import UserService from "../../model/services/user.service";
+import Body from "../../components/Util/Layout/Body/Body";
+import { SortType, TimeType } from "../../model/global";
 
 interface Props {
     userData: UserData;
@@ -16,7 +16,7 @@ interface Props {
 const UserPage: NextPage<Props> = ({ userData, sort, time, page }: Props) => (
     <>
         <Banner />
-        <Body>
+        <Body width={"70%"} minWidth={1100}>
             <User 
                 userData={userData}
                 sort={sort}

@@ -1,10 +1,10 @@
 import { Tab, Tabs } from "@mantine/core";
 import React, { useState } from "react";
-import { SortType, TimeType } from "../../database/global";
-import Posts from "../posts/Posts";
-import SortOptions from "../sortOptions/SortOptions";
+import { SortType, TimeType } from "../../model/global";
+import Posts from "../Post/Posts/Posts";
+import SortOptions from "../Util/Widget/SortOptions/SortOptions";
 import styles from "./User.module.css";
-import UserPanel from "./userPanel/UserPanel";
+import UserPanel from "./UserPanel/UserPanel";
 
 export interface UserData {
     name: string;
@@ -31,7 +31,7 @@ const User = ({ userData, sort, time, page }: Props) => {
     }
 
     return (
-        <div className={styles.UserPanel}>
+        <div>
             <Tabs className={styles.Tabs}>
                 <Tab label="Posts"></Tab>
                 <Tab label="Comments"></Tab>

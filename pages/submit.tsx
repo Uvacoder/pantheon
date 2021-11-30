@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import React from "react";
-import Banner from "../components/banner/Banner";
-import SubmitPost from "../components/submitPost/SubmitPost";
-import Body from "../components/util/body/Body";
+import Banner from "../components/Banner/Banner";
+import SubmitPost from "../components/Submit/Submit";
+import Body from "../components/Util/Layout/Body/Body";
 
 const SubmitPage: NextPage = () => {
     return (

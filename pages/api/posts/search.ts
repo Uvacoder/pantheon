@@ -2,16 +2,13 @@ import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { query, ValidationChain } from "express-validator";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { validate } from "../../../utils/server/validation";
-import PostService from "../../../database/services/post";
+import PostService from "../../../model/services/post.service";
 import { SearchRes } from "../../../api/interfaces/post";
 import { ErrorRes } from "../../../api/interfaces/common";
-import { ALL_CATEGORY, TimeType } from "../../../database/global";
+import {TimeType } from "../../../model/global";
 
 const findFilter: ValidationChain[] = [
     query("poster")
-        .optional()
-        .isString(),
-    query("category")
         .optional()
         .isString(),
     query("time")
@@ -26,7 +23,6 @@ const findFilter: ValidationChain[] = [
 
 function calculateDate(time: TimeType) {
     const today = new Date();
-    console.log(today)
     let year = today.getFullYear();
     let month = today.getMonth();
     let date = today.getDate();
@@ -67,15 +63,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<SearchRes | Err
                 page = 1;
             }
 
-            let category = req.query.category as string | undefined;
-            if (category === ALL_CATEGORY) {
-                category = undefined;
-            }
-
             const filter = {
                 poster: req.query.poster as string | undefined,
                 sort: req.query.sort as "new" | "top",
-                category,
                 page,
                 date
             };

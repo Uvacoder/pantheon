@@ -4,8 +4,8 @@ import { SignInBody, SignInRes } from "../../../api/interfaces/auth";
 import { ErrorRes } from "../../../api/interfaces/common";
 import { validateBody } from "../../../utils/server/validation";
 import { cookie } from "../../../utils/server/middleware/cookie";
-import UserService from "../../../database/services/user";
-import SessionService from "../../../database/services/session";
+import UserService from "../../../model/services/user.service";
+import SessionService from "../../../model/services/session.service";
 
 const signIn: ValidationChain[] = [
     body("email")

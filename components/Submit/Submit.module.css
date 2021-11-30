@@ -1,0 +1,23 @@
+.SubmitPost {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 65px;
+    overflow: visible !important;
+}
+
+.SubmitTitle {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.SubmitPanel {
+    background-color: rgb(26, 27, 30) !important;
+    margin-bottom: 5px;
+    padding-top: 4px !important;
+    overflow: visible !important;
+}
+
+.Tab {
+    width: 33.3%;
+    font-size: 15px;
+}

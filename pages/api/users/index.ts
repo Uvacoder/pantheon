@@ -1,9 +1,9 @@
 import { CreateBody, UpdateBody } from "../../../api/interfaces/user";
 import { ErrorRes, IdOptionalRes } from "../../../api/interfaces/common";
-import { MAX_PASSWORD_LEN, MAX_USER_DESC_LEN, MAX_USER_NAME_LEN } from "../../../database/global";
+import { MAX_PASSWORD_LEN, MAX_USER_DESC_LEN, MAX_USER_NAME_LEN } from "../../../model/global";
 import { NextApiRequest, NextApiResponse } from "../../../utils/types/next";
 import { ValidationChain, body } from "express-validator";
-import UserService from "../../../database/services/user";
+import UserService from "../../../model/services/user.service";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { getUser } from "../../../utils/server/session";
 import { validateBody } from "../../../utils/server/validation";
@@ -17,13 +17,13 @@ const create: ValidationChain[] = [
         .withMessage("Email address is already in use."),
     body("name").isString()
         .isLength({ min: 5, max: MAX_USER_NAME_LEN })
-        .withMessage("Should be between 5 and 25 characters.")
+        .withMessage(`Should be between 5 and ${MAX_USER_NAME_LEN} characters.`)
         .escape()
         .custom(async (value) => await UserService.findUserByName(value))
         .withMessage("User name is already in use."),
     body("password").isString()
         .isLength({ min: 5, max: MAX_PASSWORD_LEN })
-        .withMessage("Should be between 5 and 100 characters."),
+        .withMessage(`Should be between 5 and ${MAX_PASSWORD_LEN} characters.`),
     body("verifyPassword")
         .isString()
         .custom((value, { req }) => value === req.body.password)
@@ -31,9 +31,6 @@ const create: ValidationChain[] = [
 ];
 
 const update: ValidationChain[] = [
-    body("update.avatar")
-        .optional()
-        .isString(),
     body("update.description")
         .optional()
         .isString()
@@ -70,7 +67,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IdOptionalRes |
                 return;
             }
 
-            const updatedUser = await UserService.updateAvatar(user, body.update);
+            const updatedUser = await UserService.update(user, body.update);
             const id = updatedUser?.id;
             res.json({ id: id });
             return;

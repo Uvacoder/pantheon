@@ -4,8 +4,8 @@ import { UpdateBody } from "../../../api/interfaces/post";
 import { cookie } from "../../../utils/server/middleware/cookie";
 import { validateBody } from "../../../utils/server/validation";
 import { getUser } from "../../../utils/server/session";
-import PostService from "../../../database/services/post";
-import { MAX_POST_LEN } from "../../../database/global";
+import PostService from "../../../model/services/post.service";
+import { MAX_POST_LEN } from "../../../model/global";
 import { sanitizeString } from "../../../utils/sanitize";
 
 const update: ValidationChain[] = [
@@ -28,10 +28,6 @@ const update: ValidationChain[] = [
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     const id = req.query.id as string;
-    if (typeof id !== "string") {
-        res.status(400).end();
-        return;
-    }
 
     switch (req.method) {
         case "GET": {

@@ -1,7 +1,7 @@
 import { Title } from "@mantine/core";
 import { NextPage } from "next";
 import React from "react";
-import Banner from "../components/banner/Banner";
+import Banner from "../components/Banner/Banner";
 
 const Error404Page: NextPage = () => (
     <>

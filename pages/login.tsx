@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import React from "react";
-import Banner from "../components/banner/Banner";
-import Login from "../components/login/Login";
-import AbsoluteCenter from "../components/util/absoluteCenter/AbsoluteCenter";
+import Banner from "../components/Banner/Banner";
+import Login from "../components/Login/Login";
+import AbsoluteCenter from "../components/Util/Layout/AbsoluteCenter/AbsoluteCenter";
 
 const LoginPage: NextPage = () => {
     return (

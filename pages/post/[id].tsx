@@ -1,12 +1,9 @@
 import { GetServerSideProps, NextPage } from "next";
 import React from "react";
-import Banner from "../../components/banner/Banner";
-import Feed from "../../components/feed/Feed";
-import FullPost from "../../components/post/fullPostPanel/FullPostPanel";
-import PostPanel from "../../components/post/postPanel/PostPanel";
-import Body from "../../components/util/body/Body";
-import { Post } from "../../database/entities/post";
-import PostService from "../../database/services/post";
+import Banner from "../../components/Banner/Banner";
+import FullPost from "../../components/Comment/PostPanel/PostPanel";
+import Body from "../../components/Util/Layout/Body/Body";
+import PostService from "../../model/services/post.service";
 
 interface Props {
     serializedPost: string;
@@ -15,16 +12,8 @@ interface Props {
 const PostPage: NextPage<Props> = ({ serializedPost }: Props) => (
     <>
         <Banner />
-        <Body>
-            <div
-                style={{
-                    margin: "0 auto",
-                    paddingTop: 40,
-                    width: "50%"
-                }}
-            >
-                <FullPost post={JSON.parse(serializedPost)}/>
-            </div>
+        <Body width={"50%"} minWidth={700}>
+        <FullPost post={JSON.parse(serializedPost)}/>
         </Body>
     </>
 );
