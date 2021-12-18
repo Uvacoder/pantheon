@@ -4,7 +4,7 @@ import styles from "./Posts.module.css";
 import useSWR from "swr";
 import { SearchRes } from "../../../api/interfaces/post";
 import { fetcher } from "../../../utils/client/fetcher";
-import PostPanel from "../PostPanel/PostPanel";
+import PostPanel from "../../PostPanel/PostPanel";
 import Pagination from "../../Util/Widget/Pagination/Pagination";
 import PostSkeleton from "../../Util/Loading/PostSkeleton/PostSkeleton";
 
